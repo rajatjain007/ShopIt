@@ -1,5 +1,5 @@
 {
-  "name": "shopper",
+  "name": "ShopIt",
   "version": "0.0.0",
   "private": true,
   "author": "Rajat M. Jain",
@@ -8,10 +8,12 @@
     "dev": "nodemon ./server/bin/start"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "~1.19.0",
     "cookie-parser": "~1.4.5",
     "express": "~4.17.1",
     "express-session": "^1.17.1",
+    "mongoose": "^6.3.1",
     "pug": "~3.0.0"
   },
   "devDependencies": {

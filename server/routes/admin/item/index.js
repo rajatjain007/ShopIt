@@ -1,19 +1,18 @@
 const express = require("express");
+const itemService = require("../../../services/ItemService");
+const UserService = require("../../../services/UserService");
 
 module.exports = () => {
   const router = express.Router();
 
-  router.get("/:itemId?", async (req, res) => {
-    return res.render("admin/item", {});
-
-    /*
+  router.get("/:itemId?", async (req, res, next) => {
     try {
-      const items = await ItemService.getAll();
+      const items = await itemService.getAll();
       let item = null;
 
       // The optional param itemId is present
       if (req.params.itemId) {
-        item = await ItemService.getOne(req.params.itemId);
+        item = await itemService.getOne(req.params.itemId);
       }
 
       return res.render("admin/item", {
@@ -23,14 +22,10 @@ module.exports = () => {
     } catch (err) {
       return next(err);
     }
-    */
   });
 
   // Save or update item
-  router.post("/", async (req, res, next) => {
-    return next("Not implemented");
-
-    /*
+  router.post("/", async (req, res) => {
     // Massage the passed in form data a bit
     const sku = req.body.sku.trim();
     const name = req.body.name.trim();
@@ -48,14 +43,14 @@ module.exports = () => {
     try {
       // If there was no existing item we now want to create a new item object
       if (!req.body.itemId) {
-        await ItemService.create({ sku, name, price });
+        await itemService.create({ sku, name, price });
       } else {
         const itemData = {
           sku,
           name,
           price,
         };
-        await ItemService.update(req.body.itemId, itemData);
+        await itemService.update(req.body.itemId, itemData);
       }
       req.session.messages.push({
         type: "success",
@@ -72,16 +67,12 @@ module.exports = () => {
       console.error(err);
       return res.redirect("/admin/item");
     }
-    */
   });
 
   // Delete item
   router.get("/delete/:itemId", async (req, res, next) => {
-    return next("Not implemented");
-
-    /*
     try {
-      await ItemService.remove(req.params.itemId);
+      await itemService.remove(req.params.itemId);
     } catch (err) {
       // Error handling
       req.session.messages.push({
@@ -97,7 +88,6 @@ module.exports = () => {
       text: "The item was successfully deleted!",
     });
     return res.redirect("/admin/item");
-    */
   });
   return router;
 };
