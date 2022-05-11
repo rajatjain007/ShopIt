@@ -5,4 +5,8 @@ module.exports = {
   mongodb: {
     url: "mongodb://localhost:37017/shopit",
   },
+  redis: {
+    port: 7379,
+    client: null,
+  },
 };
